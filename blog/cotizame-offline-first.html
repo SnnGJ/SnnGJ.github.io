@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Construyendo CotizaMe: Privacidad Offline-First y Sellos QR en Android | SnnGJ Devlog</title>
+  <meta name="description" content="Análisis técnico de arquitectura y decisiones de diseño detrás de CotizaMe, una app móvil Android 100% offline construida con Jetpack Compose, Room y sellos criptográficos QR.">
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Construyendo CotizaMe: Privacidad Offline-First y Sellos QR en Android">
+  <meta property="og:description" content="Por qué elegí una arquitectura 100% local, cómo implementamos la validación antifraude con QR y los aprendizajes al renderizar PDFs nativos en Android.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://snngj.github.io/blog/cotizame-offline-first.html">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="brand-link">
+        <div class="brand-avatar">S</div>
+        <span>SnnGJ</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Inicio</a></li>
+        <li><a href="../index.html#proyectos" class="nav-link">Proyectos</a></li>
+        <li><a href="../index.html#blog" class="nav-link active">Devlog</a></li>
+        <li><a href="../projects/cotizame/index.html" class="nav-link">CotizaMe</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="theme-toggle-btn" type="button" aria-label="Cambiar tema"></button>
+        <button class="mobile-menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container" style="max-width: 780px;">
+      <!-- Breadcrumb -->
+      <div style="padding-top: 2rem;">
+        <a href="../index.html#blog" class="back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Regresar a la bitácora
+        </a>
+      </div>
+
+      <!-- Article Header -->
+      <header class="article-header">
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+          <span class="badge">Arquitectura</span>
+          <span class="badge">Android Nativo</span>
+          <span class="badge">Offline-First</span>
+        </div>
+
+        <h1 class="article-title">
+          Construyendo CotizaMe: Privacidad Offline-First y Sellos Criptográficos en Android
+        </h1>
+
+        <div class="article-meta">
+          <span>Por <strong>Senén Guzmán Jiménez</strong></span>
+          <span>•</span>
+          <time datetime="2026-09-20">20 de Septiembre, 2026</time>
+          <span>•</span>
+          <span>6 min lectura</span>
+        </div>
+      </header>
+
+      <!-- Article Body -->
+      <article class="article-body">
+        <p>
+          En los últimos años, la industria del software se ha volcado hacia el modelo de "todo en la nube" mediante suscripciones mensuales. Si bien este paradigma tiene ventajas indiscutibles para el trabajo colaborativo distribuido, para un gran número de contratistas, talleres mecánicos, instaladores y autónomos representa una fricción enorme: cobros recurrentes inesperados, dependencia de conexión en sótanos o zonas industriales sin cobertura 4G, y sobre todo, <strong>la incertidumbre de quién tiene acceso a los presupuestos y datos de sus clientes</strong>.
+        </p>
+
+        <p>
+          Con esa premisa nació <strong>CotizaMe</strong>: una aplicación para Android diseñada desde cero con una filosofía innegociable de <strong>Privacidad Absoluta y Rendimiento Offline-First</strong>. En este artículo comparto los principios de diseño técnico y soluciones que adoptamos durante su desarrollo.
+        </p>
+
+        <h2>1. El Modelo de Datos: SQLite y Room Sin Fugas</h2>
+        <p>
+          El núcleo de la persistencia de CotizaMe descansa sobre <strong>Room Database</strong>, la capa de abstracción oficial de Google sobre SQLite. Diseñamos un esquema relacional normalizado pero ágil, compuesto por entidades independientes:
+        </p>
+
+        <ul>
+          <li><code>ClientEntity</code>: Directorio de contactos, direcciones fiscales y teléfonos.</li>
+          <li><code>QuoteEntity</code> & <code>QuoteItemEntity</code>: Registro cabecera y detalle de cotizaciones con subtotales, retenciones y descuentos.</li>
+          <li><code>CatalogItemEntity</code>: Listas de precios unitarios y descripciones de servicios.</li>
+          <li><code>PaymentEntity</code>: Historial de abonos, saldos y anticipos.</li>
+          <li><code>AgendaEntity</code>: Registro de citas y entregas programadas.</li>
+        </ul>
+
+        <div class="callout">
+          <div class="callout-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            Cero telemetría invasiva
+          </div>
+          <p style="margin: 0; font-size: 0.95rem;">
+            A diferencia de la mayoría de apps de facturación, CotizaMe no incluye librerías de tracking comercial ni envía eventos de analytics a servidores remotos. Toda operación de lectura y escritura sucede en memoria y almacenamiento flash local.
+          </p>
+        </div>
+
+        <h2>2. Generación Nativa de PDF con Sello QR Antifraude</h2>
+        <p>
+          Uno de los principales dolores de cabeza al trabajar offline es garantizar que un presupuesto en PDF emitido por un contratista a un cliente no pueda ser alterado después en su importe o condiciones por intermediarios malintencionados.
+        </p>
+
+        <p>
+          Para resolver esto, integramos un generador vectorial basado en <code>android.graphics.pdf.PdfDocument</code> combinado con un <strong>Sello QR Criptográfico</strong>. Al emitir una cotización, se genera una firma de resumen basada en el identificador único, los importes y la fecha de emisión:
+        </p>
+
+<pre><code class="language-kotlin">// Estructura conceptual de la validación del sello QR
+data class QrValidationPayload(
+    val quoteId: Long,
+    val clientName: String,
+    val totalAmount: Double,
+    val timestamp: Long,
+    val checksum: String
+)
+
+fun generateVerificationQr(quote: QuoteEntity, items: List<QuoteItemEntity>): Bitmap {
+    val rawPayload = "${quote.id}|${quote.total}|${quote.createdAt}|${calculateHash(items)}"
+    return QrCodeWriter().encode(rawPayload, BarcodeFormat.QR_CODE, 256, 256).toBitmap()
+}</code></pre>
+
+        <p>
+          Cualquier usuario con CotizaMe puede utilizar la función integrada de escáner QR para verificar de forma instantánea la legitimidad de un presupuesto impreso o digital, comparando el contenido visual con la firma criptográfica contenida en el código.
+        </p>
+
+        <h2>3. Integraciones Nativas sin Servicios en la Nube</h2>
+        <p>
+          Ser offline-first no significa estar aislado del ecosistema del teléfono. CotizaMe aprovecha al máximo las APIs de Android para ofrecer conveniencia sin renunciar a la privacidad:
+        </p>
+
+        <ul>
+          <li><strong>Importación masiva por CSV</strong>: Los usuarios pueden redactar su catálogo de precios en Excel o Google Sheets, exportarlo a <code>.csv</code> y cargarlo directamente a la base de datos local en menos de dos segundos.</li>
+          <li><strong>Sincronización con Google Calendar</strong>: En lugar de requerir una cuenta y un backend de sincronización, la app se comunica de forma directa con el <code>CalendarContract</code> del sistema operativo para registrar citas en el calendario nativo del usuario.</li>
+          <li><strong>Protección Biométrica</strong>: Mediante <code>BiometricPrompt</code>, el acceso a los datos financieros está resguardado por la huella dactilar o el reconocimiento facial del dispositivo.</li>
+        </ul>
+
+        <h2>4. Conclusiones y Próximos Pasos</h2>
+        <p>
+          Desarrollar CotizaMe ha reafirmado que una app móvil bien diseñada con Jetpack Compose y bases de datos locales puede ser increíblemente rápida, confiable y respetuosa con los datos del usuario. Actualmente nos encontramos en la versión <strong>1.0.6</strong>, refinando el sistema de actualizaciones OTA directas y el soporte para nuevas plantillas de exportación.
+        </p>
+
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">¿Te interesó el proyecto?</span>
+            <strong style="color: var(--text-primary);">Prueba la app en tu teléfono Android</strong>
+          </div>
+          <a href="../projects/cotizame/index.html" class="btn btn-primary">
+            Ver Ficha y Descargar CotizaMe →
+          </a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-copy">
+        © 2026 Senén Guzmán Jiménez (SnnGJ). Bitácora de ingeniería.
+      </div>
+      <ul class="footer-links">
+        <li><a href="../index.html" class="footer-link">Inicio</a></li>
+        <li><a href="../projects/cotizame/index.html" class="footer-link">CotizaMe</a></li>
+        <li><a href="https://github.com/SnnGJ" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

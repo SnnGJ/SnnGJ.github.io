@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CotizaMe | App Móvil de Cotizaciones y Facturación 100% Offline para Android</title>
+  <meta name="description" content="CotizaMe es una app para Android que permite generar cotizaciones profesionales en PDF con sello QR antifraude, catálogo CSV, agenda y control de abonos sin depender de internet.">
+  <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="CotizaMe | Cotizaciones Profesionales 100% Offline">
+  <meta property="og:description" content="Genera presupuestos en PDF con sello QR antifraude, administra tu catálogo, clientes y abonos directamente en tu teléfono Android.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://snngj.github.io/projects/cotizame/">
+  <meta property="og:image" content="../../assets/images/cotizame-logo.png">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .cotizame-hero-card {
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.2) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin: 2rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cotizame-logo-img {
+      max-height: 85px;
+      margin: 0 auto 1.25rem;
+      object-fit: contain;
+    }
+    .privacy-callout {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: var(--text-primary);
+      margin: 2rem 0;
+    }
+    .privacy-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .download-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      text-align: center;
+      margin: 3rem 0 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../../index.html" class="brand-link">
+        <div class="brand-avatar">S</div>
+        <span>SnnGJ</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="../../index.html#proyectos" class="nav-link">← Volver al Portfolio</a></li>
+        <li><a href="#caracteristicas" class="nav-link">Características</a></li>
+        <li><a href="#especificaciones" class="nav-link">Especificaciones</a></li>
+        <li><a href="#descarga" class="nav-link">Descarga</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="theme-toggle-btn" type="button" aria-label="Cambiar tema"></button>
+        <button class="mobile-menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- Breadcrumb & Back -->
+      <div style="padding-top: 2rem;">
+        <a href="../../index.html" class="back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Regresar a Proyectos
+        </a>
+      </div>
+
+      <!-- CotizaMe Product Hero -->
+      <div class="cotizame-hero-card">
+        <img src="../../assets/images/cotizame-logo.png" alt="Logotipo Oficial CotizaMe" class="cotizame-logo-img">
+        
+        <div style="display: inline-flex; gap: 0.5rem; margin-bottom: 1rem;">
+          <span class="badge">Versión 1.0.6</span>
+          <span class="status-badge" style="margin-bottom: 0; padding: 0.2rem 0.65rem;">
+            <span class="status-dot"></span>
+            100% Offline First
+          </span>
+        </div>
+
+        <h1 class="hero-title" style="font-size: 2.3rem; margin-bottom: 0.75rem;">
+          Cotizaciones profesionales en segundos.<br>
+          <span class="gradient-text">Sin internet. Sin suscripciones. Privacidad total.</span>
+        </h1>
+
+        <p class="hero-description" style="margin: 0 auto 2rem; max-width: 720px;">
+          CotizaMe es la herramienta móvil definitiva para contratistas, talleres, consultores y prestadores de servicios que necesitan emitir presupuestos impecables con validez antifraude desde su teléfono Android, sin comprometer sus datos comerciales.
+        </p>
+
+        <div class="hero-actions" style="justify-content: center;">
+          <a href="#descarga" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Descargar APK v1.0.6
+          </a>
+          <a href="https://github.com/SnnGJ" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            Repositorio GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- Privacy Guarantee Callout -->
+      <div class="privacy-callout">
+        <span class="privacy-icon">🛡️</span>
+        <div>
+          <strong style="display:block; margin-bottom: 0.2rem;">Privacidad Absoluta Garantizada</strong>
+          <span style="font-size: 0.9rem; color: var(--text-secondary);">
+            CotizaMe no envía información de tus clientes, cotizaciones, importes ni inventario a ningún servidor de terceros. Toda tu base de datos SQLite se almacena de forma local y cifrada dentro de tu dispositivo.
+          </span>
+        </div>
+      </div>
+
+      <!-- Features Bento Grid -->
+      <section id="caracteristicas" class="section" style="border-top: none; padding-top: 1rem;">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Módulos y Características</h2>
+            <p class="section-subtitle">Diseñado para resolver las necesidades reales de cotización y cobranza.</p>
+          </div>
+        </div>
+
+        <div class="bento-grid">
+          <div class="bento-card">
+            <div class="bento-icon">📄</div>
+            <h3 class="bento-title">Generación de Presupuestos en PDF</h3>
+            <p class="bento-text">
+              Calcula subtotales, desgloses de impuestos (IVA), retenciones y descuentos al instante. Diseños limpios y profesionales adaptados a formato carta y listos para compartir vía WhatsApp o Correo.
+            </p>
+          </div>
+
+          <div class="bento-card">
+            <div class="bento-icon">🔍</div>
+            <h3 class="bento-title">Sello QR Antifraude & Verificación</h3>
+            <p class="bento-text">
+              Cada documento generado incorpora un sello QR criptográfico único. Cualquier cliente o auditor puede escanearlo con la app para certificar que el presupuesto no fue adulterado tras su emisión.
+            </p>
+          </div>
+
+          <div class="bento-card">
+            <div class="bento-icon">📦</div>
+            <h3 class="bento-title">Catálogo con Importación Masiva CSV</h3>
+            <p class="bento-text">
+              Carga cientos de productos, servicios y precios unitarios en segundos mediante hojas de cálculo en CSV. Incluye selector de precios con búsqueda instantánea y categorización por rubro.
+            </p>
+          </div>
+
+          <div class="bento-card">
+            <div class="bento-icon">👥</div>
+            <h3 class="bento-title">Directorio de Clientes & Contactos</h3>
+            <p class="bento-text">
+              Vinculación directa con los contactos nativos de tu teléfono Android para agregar clientes con un solo toque, conservando notas de entrega, dirección y teléfonos de contacto directo.
+            </p>
+          </div>
+
+          <div class="bento-card">
+            <div class="bento-icon">💰</div>
+            <h3 class="bento-title">Control de Abonos y Estados de Cuenta</h3>
+            <p class="bento-text">
+              Registra pagos parciales, fechas de anticipo, métodos de pago y saldo restante. Genera estados de cuenta individuales para mantener transparencia financiera con cada comprador.
+            </p>
+          </div>
+
+          <div class="bento-card">
+            <div class="bento-icon">📅</div>
+            <h3 class="bento-title">Agenda & Google Calendar</h3>
+            <p class="bento-text">
+              Sincroniza tus compromisos, visitas técnicas y fechas límite de entrega directamente con el calendario de Android y Google Calendar para recibir alertas oportunas antes de cada cita.
+            </p>
+          </div>
+
+          <div class="bento-card col-span-2">
+            <div class="bento-icon">🔐</div>
+            <h3 class="bento-title">Bloqueo Biométrico & Respaldos en Clic</h3>
+            <p class="bento-text">
+              Protege el acceso a la aplicación con tu huella digital o desbloqueo facial nativo de Android. Además, crea copias de respaldo completas de tu base de datos SQLite para transferirlas de teléfono de manera segura y sin intermediarios.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Technical Specs -->
+      <section id="especificaciones" class="section">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Especificaciones Técnicas</h2>
+            <p class="section-subtitle">Construido siguiendo los más altos estándares del desarrollo Android moderno.</p>
+          </div>
+        </div>
+
+        <div class="specs-grid">
+          <div class="spec-box">
+            <div class="spec-label">Lenguaje Principal</div>
+            <div class="spec-val">Kotlin 2.0+</div>
+          </div>
+          <div class="spec-box">
+            <div class="spec-label">Framework UI</div>
+            <div class="spec-val">Jetpack Compose & M3</div>
+          </div>
+          <div class="spec-box">
+            <div class="spec-label">Base de Datos</div>
+            <div class="spec-val">Room DB (SQLite Local)</div>
+          </div>
+          <div class="spec-box">
+            <div class="spec-label">Compatibilidad Mínima</div>
+            <div class="spec-val">Android 8.0 (API 26) o sup.</div>
+          </div>
+          <div class="spec-box">
+            <div class="spec-label">Seguridad</div>
+            <div class="spec-val">Biometrics & Integrity</div>
+          </div>
+          <div class="spec-box">
+            <div class="spec-label">Modelo de Datos</div>
+            <div class="spec-val">100% Offline First</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Download & Installation Section -->
+      <section id="descarga" class="download-card">
+        <h2 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 0.5rem;">Descargar CotizaMe para Android</h2>
+        <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 1.75rem; font-size: 0.95rem;">
+          Descarga directamente el archivo de instalación APK para comenzar a gestionar tus presupuestos de manera profesional.
+        </p>
+
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="https://github.com/SnnGJ/CotizaMe/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.75rem 1.5rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Descargar en GitHub Releases
+          </a>
+          <a href="mailto:od.senen@gmail.com?subject=Consulta%20sobre%20CotizaMe" class="btn btn-secondary" style="padding: 0.75rem 1.5rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Soporte & Contacto
+          </a>
+        </div>
+
+        <div style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-muted);">
+          <span>Paquete: <code>com.snngj.cotizame</code></span> • <span>Versión compilada: <code>1.0.6 (Code 7)</code></span>
+        </div>
+      </section>
+
+      <!-- Changelog Section -->
+      <section class="section" style="padding-bottom: 4rem;">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Historial de Cambios (Changelog)</h2>
+            <p class="section-subtitle">Evolución continua y mejoras en cada entrega.</p>
+          </div>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+            <strong style="font-size: 1.1rem; color: var(--text-primary);">Versión 1.0.6 (Última versión)</strong>
+            <span class="badge">Estable</span>
+          </div>
+          <ul style="margin-left: 1.25rem; color: var(--text-secondary); font-size: 0.92rem; line-height: 1.7;">
+            <li>Incorporación del módulo de actualizaciones automáticas (OTA) conectado a GitHub Releases con soporte para tokens de repositorios privados.</li>
+            <li>Optimización del motor de generación de PDF con sello QR criptográfico de alta resolución.</li>
+            <li>Mejoras en el analizador de archivos CSV para la importación masiva de catálogos y listas de precios.</li>
+            <li>Consola de diagnóstico y reporte de fallos integrada en la pantalla de soporte.</li>
+            <li>Ajustes de rendimiento en consultas reactivas de Room DB y fluidez de animaciones en Jetpack Compose.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-copy">
+        © 2026 Senén Guzmán Jiménez (SnnGJ) · Desarrollador de CotizaMe.
+      </div>
+      <ul class="footer-links">
+        <li><a href="../../index.html" class="footer-link">Inicio</a></li>
+        <li><a href="https://github.com/SnnGJ" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a></li>
+        <li><a href="mailto:od.senen@gmail.com" class="footer-link">Contacto</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>
